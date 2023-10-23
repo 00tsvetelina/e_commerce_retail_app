@@ -1,0 +1,34 @@
+<div class="card">
+  <h3 class="title">Shopping Cart</h3>
+  <div class="card-body">
+
+    <h4>Shipping Options:</h4>
+    <select class="form-select"
+            aria-label="Default select example"
+            *ngIf="shippingPrices | async as prices">
+      <option *ngFor="let price of prices">{{price.type}} - {{price.price|currency:"USD":"symbol"}}</option>
+    </select>
+    
+    <h3 class="empty" *ngIf="items.length==0">Your cart is empty, please add items! </h3>
+
+    
+    <div class="table-responsive"
+      *ngIf="items.length!==0">
+      <h2 class="title-secondary">Product Details</h2>
+      <table class="table">
+        <thead>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Description</th>
+        </thead>
+        <tbody *ngFor="let item of items">
+          <td>{{ item.productName }}</td>
+          <td>{{ item.price | currency }}</td>
+          <td>{{ item.description}}</td>
+        </tbody>
+      </table>
+
+      <button class="delete" (click)="clearCart()">Empty Cart</button>
+    </div>
+  </div>
+</div>
